@@ -7,6 +7,69 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	
+	<header>
+		<h1>My Task Board</h1>
+		<span id="taskCounter">0 Tasks</span>
+
+		<label for="priorityFilter">Filter by Priority:</label>
+		<select id="priorityFilter">
+			<option value="all">All</option>
+			<option value="high">High</option>
+			<option value="medium">Medium</option>
+			<option value="low">Low</option>
+		</select>
+		
+	</header>
+
+	<main>
+		<section id="todo">
+			<h2>To Do</h2>
+			<ul id="todoList"></ul>
+			<button type="button" data-column="todo">Add Task</button>
+		</section>
+
+		<section id="inprogress">
+			<h2>In Progress</h2>
+			<ul id="inprogressList"></ul>
+			<button type="button" data-column="inprogress">Add Task</button>
+		</section>
+
+		<section id="done">
+			<h2>Done</h2>
+			<ul id="doneList"></ul>
+			<button type="button" data-column="done">Add Task</button>
+			<button type="button" id="clearDone">Clear All</button>
+		</section>
+	</main>
+
+	<div id="taskModal" class="hidden">
+		<div>
+			<h3 id="modalTitle">Add Task</h3>
+
+			<form id="taskForm">
+				<label for="taskTitle">Title</label>
+				<input type="text" id="taskTitle" name="taskTitle">
+
+				<label for="taskDescription">Description</label>
+				<textarea type="text" id="taskDescription" name="taskDescription"></textarea>
+
+				<label for="taskPriority">Priority</label>
+				<select id="taskPriority" name="taskPriority">
+					<option value="high">High</option>
+					<option value="medium">Medium</option>
+					<option value="low">Low</option>
+				</select>
+
+				<label for="taskDueDate">Due Date</label>
+				<input type="date" id="taskDueDate" name="taskDueDate">
+
+				<button type="submit">Save</button>
+				<button type="button" id="cancelTask">Cancel</button>
+			</form>
+		</div>
+		
+	</div>
+
+	<script src="taskmanager.js"></script>	
 </body>
 </html>
