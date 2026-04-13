@@ -16,6 +16,10 @@ function createTaskCard(taskObj){
 	priority.classList.add("priority-badge");
 	priority.textContent = taskObj.priority;
 
+	const dueDate = document.createElement("p");
+	dueDate.classList.add("task-due");
+	dueDate.textContent = taskObj.dueDate;
+
 	const editButton = document.createElement("button");
 	editButton.setAttribute("type", "button");
 	editButton.setAttribute("data-action", "edit");
@@ -62,7 +66,7 @@ function addTask(columnId, taskObj){
 }
 
 function deleteTask(taskId){
-	const card = document.querySelector('[data-id="${taskId}"]');
+	const card = document.querySelector(`[data-id="${taskId}"]`);
 	
 	if (!card) return;
 
@@ -102,7 +106,7 @@ function updateTask(taskId	, updatedData){
 	task.priority = updatedData.priority;
 	task.dueDate = updatedData.dueDate;
 
-	const oldCard = document.querySelector('[data-id="'+ taskId + '"]');
+	const oldCard = document.querySelector(`[data-id="'+ taskId + '"]`);
 
 	if (!oldCard) return;
 
@@ -110,3 +114,4 @@ function updateTask(taskId	, updatedData){
 
 	oldCard.replaceWith(newCard);
 }
+
