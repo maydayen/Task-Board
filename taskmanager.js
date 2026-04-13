@@ -61,7 +61,7 @@ function addTask(columnId, taskObj){
 	updateTaskCounter();
 }
 
-function deleteTasj(taskId){
+function deleteTask(taskId){
 	const card = document.querySelector('[data-id="${taskId}"]');
 	
 	if (!card) return;
@@ -72,4 +72,19 @@ function deleteTasj(taskId){
 		card.remove();
 	}, 300);
 
+}
+
+function editTask(taskId){
+
+	const task = tasks.find(function(t){
+		return t.id === taskId;
+	});
+
+	if (!task) return;
+
+	document.getElementById("taskTitle").value = task.title;
+	document.getElementById("taskDescription").value = task.description;
+	document.getElementById("taskPriority").value = task.priority;
+	document.getElementById("taskDueDate").value = task.dueDate;
+	document.getElementById("taskModal").classList.remove("hidden");
 }
