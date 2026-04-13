@@ -60,3 +60,16 @@ function addTask(columnId, taskObj){
 
 	updateTaskCounter();
 }
+
+function deleteTasj(taskId){
+	const card = document.querySelector('[data-id="${taskId}"]');
+	
+	if (!card) return;
+
+	card.classList.add("fade-out");
+
+	setTimeout(function() {
+		card.remove();
+	}, 300);
+
+}
