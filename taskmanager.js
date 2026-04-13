@@ -1,0 +1,42 @@
+function createTaskCard(taskObj){
+	const li = document.createElement("li");
+	li.setAttribute("data-id", taskObj.id);
+	li.setAttribute("data-priority", taskObj.priority);
+	li.classList.add("task-card");
+
+	const title = document.createElement("h3");
+	title.classList.add("task-title");
+	title.textContent = taskObj.title;
+
+	const description = document.createElement("p");
+	description.classList.add("task-desc");
+	description.textContent = taskObj.description;
+
+	const priority = document.createElement("span");
+	priority.classList.add("priority-badge");
+	priority.textContent = taskObj.priority;
+
+	const editButton = document.createElement("button");
+	editButton.setAttribute("type", "button");
+	editButton.setAttribute("data-action", "edit");
+	editButton.setAttribute("data-id", taskObj.id);
+	editButton.classList.add("edit-btn");
+	editButton.textContent = "Edit";
+
+	const deleteButton = document.createElement("button");
+	deleteButton.setAttribute("type", "button");
+	deleteButton.setAttribute("data-action", "delete");
+	deleteButton.setAttribute("data-id", taskObj.id);
+	deleteButton.classList.add("delete-btn");
+	deleteButton.textContent = "Delete";
+
+	li.appendChild(title);
+	li.appendChild(description);
+	li.appendChild(priority);
+	li.appendChild(dueDate);
+	li.appendChild(editButton);
+	li.appendChild(deleteButton);
+
+	return li;
+
+}
