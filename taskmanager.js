@@ -40,3 +40,23 @@ function createTaskCard(taskObj){
 	return li;
 
 }
+
+function addTask(columnId, taskObj){
+	const card = createTaskCard(taskObj);
+
+	let list;
+
+	if (columnId === "todo") {
+		list = document.getElementById("todoList");
+	}
+	else if (columnId === "inprogress") {
+		list = document.getElementById("inprogressList");
+	}
+	else {
+		list = document.getElementById("doneList");
+	}
+
+	list.appendChild(card);
+
+	updateTaskCounter();
+}
