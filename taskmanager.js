@@ -88,3 +88,25 @@ function editTask(taskId){
 	document.getElementById("taskDueDate").value = task.dueDate;
 	document.getElementById("taskModal").classList.remove("hidden");
 }
+
+function updateTask(taskId	, updatedData){
+
+	const task = tasks.find(function (t){
+		return t.id === taskId;
+	});
+
+	if (!task) return;
+
+	task.title = updatedData.title;
+	task.description = updatedData.description;
+	task.priority = updatedData.priority;
+	task.dueDate = updatedData.dueDate;
+
+	const oldCard = document.querySelector('[data-id="'+ taskId + '"]');
+
+	if (!oldCard) return;
+
+	const newCard = createTaskCard(task);
+
+	oldCard.replaceWith(newCard);
+}
