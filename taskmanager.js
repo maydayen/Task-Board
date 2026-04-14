@@ -115,3 +115,18 @@ function updateTask(taskId	, updatedData){
 	oldCard.replaceWith(newCard);
 }
 
+const modal = document.getElementById("taskModal");
+
+const addButtons = document.querySelectorAll('[data-column]');
+
+addButtons.forEach(function(button){
+	button.addEventListener("click", function(){
+		modal.classList.remove("hidden");
+	});
+});
+
+const cancelBtn = document.getElementById("cancelTask");
+
+cancelBtn.addEventListener("click", function(){
+	modal.classList.add("hidden");
+});
