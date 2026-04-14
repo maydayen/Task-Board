@@ -1,9 +1,9 @@
 :root{
-  --bg-page:#2F4156;
-  --column:#ffffff;
+  --bg-page:url("download.jpg");
+  --column:rgba(255,255,255,0.8);
   --card:#ffffff;
-  --button:#C8D9E6;
-  --button-hover:#2F4156;
+  --button:#c4c4ff;
+  --button-hover:#8989ff;
   --text:#333;
   --shadow:rgba(0,0,0,0.08);
 }
@@ -48,11 +48,22 @@ h1{
 }
 
 #taskCounter{
-  background:#C8D9E6;
+  background:#c4c4ff;
   color:#333;
   padding:8px 14px;
   border-radius:999px;
   font-weight:bold;
+}
+
+.column{
+  background: var(--column);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  border-radius: 12px;
+  padding: 16px;
+
+  box-shadow: 0 8px 20px var(--shadow);
 }
 
 /* FILTER */
@@ -103,11 +114,9 @@ ul{
 /* TASK CARD */
 
 .task-card{
-  background:var(--card);
-  padding:15px;
-  border-radius:14px;
-  margin-bottom:15px;
-  box-shadow:0 3px 8px var(--shadow);
+  background: var(--card);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px var(--shadow);
 }
 
 .task-title{
