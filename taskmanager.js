@@ -1,3 +1,7 @@
+let nextTaskId = 1;
+let currentColumnId = "todo";
+let editingTaskId = null;
+
 const tasks = [];
 function createTaskCard(taskObj){
 	const li = document.createElement("li");
@@ -39,8 +43,13 @@ function createTaskCard(taskObj){
 	li.appendChild(description);
 	li.appendChild(priority);
 	li.appendChild(dueDate);
-	li.appendChild(editButton);
-	li.appendChild(deleteButton);
+	const actions = document.createElement("div");
+	actions.classList.add("task-actions");
+
+	actions.appendChild(editButton);
+	actions.appendChild(deleteButton);
+
+	li.appendChild(actions);
 
 	return li;
 
@@ -83,7 +92,6 @@ function deleteTask(taskId){
 		if (taskIndex !== -1){
 			tasks.splice(taskIndex, 1);
 		}
-		
 	}, 300);
 
 }
@@ -144,6 +152,9 @@ const addButtons = document.querySelectorAll('[data-column]');
 
 addButtons.forEach(function(button){
 	button.addEventListener("click", function(){
+		currentColumnId = button.getAttribute("data-column");
+		editingTaskId = null;
+		taskForm.reset();
 		modal.classList.remove("hidden");
 	});
 });
@@ -155,7 +166,6 @@ cancelBtn.addEventListener("click", function(){
 });
 
 const taskForm = document.getElementById("taskForm");
-
 taskForm.addEventListener("submit", function(event){
   event.preventDefault();
 
@@ -189,6 +199,7 @@ taskForm.addEventListener("submit", function(event){
 
   modal.classList.add("hidden");
   taskForm.reset();
+  editingTaskId = null;
 });
 
 const todoList = document.getElementById("todoList");
