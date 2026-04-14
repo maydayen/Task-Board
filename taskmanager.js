@@ -27,7 +27,10 @@ function createTaskCard(taskObj){
 
 	const dueDate = document.createElement("p");
 	dueDate.classList.add("task-due");
-	dueDate.textContent = taskObj.dueDate;
+	if (taskObj.dueDate) {
+  const date = new Date(taskObj.dueDate);
+  dueDate.textContent = "Due: " + date.toLocaleDateString();
+}
 
 	const editButton = document.createElement("button");
 	editButton.setAttribute("type", "button");
@@ -43,6 +46,31 @@ function createTaskCard(taskObj){
 	deleteButton.classList.add("delete-btn");
 	deleteButton.textContent = "Delete";
 
+	const moveSelect = document.createElement("select");
+	moveSelect.setAttribute("data-action", "move");
+	moveSelect.setAttribute("data-id", taskObj.id);
+	moveSelect.classList.add("move-select");
+
+	const defaultOption = document.createElement("option");
+	defaultOption.value = "";
+	defaultOption.textContent = "Move to";
+	moveSelect.appendChild(defaultOption);
+
+	const todoOption = document.createElement("option");
+	todoOption.value = "todo";
+	todoOption.textContent = "To Do";
+	moveSelect.appendChild(todoOption);
+
+	const inprogressOption = document.createElement("option");
+	inprogressOption.value = "inprogress";
+	inprogressOption.textContent = "In Progress";
+	moveSelect.appendChild(inprogressOption);
+
+	const doneOption = document.createElement("option");
+	doneOption.value = "done";
+	doneOption.textContent = "Done";
+	moveSelect.appendChild(doneOption);
+
 	li.appendChild(title);
 	li.appendChild(description);
 
@@ -55,10 +83,10 @@ function createTaskCard(taskObj){
 	const actions = document.createElement("div");
 	actions.classList.add("task-actions");
 
+	li.appendChild(actions);
 	actions.appendChild(editButton);
 	actions.appendChild(deleteButton);
-
-	li.appendChild(actions);
+	actions.appendChild(moveSelect);
 
 	return li;
 
@@ -189,12 +217,13 @@ taskForm.addEventListener("submit", function(event){
 
   if (editingTaskId === null) {
     const taskObj = {
-      id: nextTaskId,
-      title: titleValue,
-      description: descriptionValue,
-      priority: priorityValue,
-      dueDate: dueDateValue
-    };
+		  id: nextTaskId,
+		  title: titleValue,
+		  description: descriptionValue,
+		  priority: priorityValue,
+		  dueDate: dueDateValue,
+		  column: currentColumnId
+		};
 
     tasks.push(taskObj);
     addTask(currentColumnId, taskObj);
@@ -278,6 +307,85 @@ clearDoneBtn.addEventListener("click", function() {
       }, 300);
 
     }, index * 100);
+  });
+});
+
+[todoList, inprogressList, doneList].forEach(function(list) {
+  list.addEventListener("dblclick", function(event) {
+
+    if (!event.target.classList.contains("task-title")) return;
+
+    const titleElement = event.target;
+    const card = titleElement.closest(".task-card");
+    const taskId = parseInt(card.getAttribute("data-id"), 10);
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = titleElement.textContent;
+
+    titleElement.replaceWith(input);
+    input.focus();
+
+    function saveTitle() {
+      const newTitle = input.value.trim();
+      if (newTitle === "") return;
+
+      const task = tasks.find(function(t) {
+        return t.id === taskId;
+      });
+
+      if (task) {
+        task.title = newTitle;
+      }
+
+      const newTitleElement = document.createElement("h3");
+      newTitleElement.classList.add("task-title");
+      newTitleElement.textContent = newTitle;
+
+      input.replaceWith(newTitleElement);
+    }
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        saveTitle();
+      }
+    });
+
+    input.addEventListener("blur", saveTitle);
+
+  });
+});
+
+function moveTask(taskId, newColumn){
+	const task = tasks.find(function(t){
+		return t.id === taskId;
+	});
+
+	if (!task) return;
+
+	const oldCard = document.querySelector('[data-id="' + taskId + '"]');
+	if (oldCard) {
+		oldCard.remove();
+	}
+
+	task.column = newColumn;
+	addTask(newColumn, task);
+}
+
+[todoList, inprogressList, doneList].forEach(function(list) {
+  list.addEventListener("change", function(event) {
+
+    const action = event.target.getAttribute("data-action");
+    const idStr = event.target.getAttribute("data-id");
+
+    if (action !== "move" || !idStr) return;
+
+    const taskId = parseInt(idStr, 10);
+    const newColumn = event.target.value;
+
+    if (newColumn === "") return;
+
+    moveTask(taskId, newColumn);
   });
 });
 

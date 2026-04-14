@@ -206,6 +206,14 @@ button:hover{
   color: white;
 }
 
+.move-select{
+  padding:6px 8px;
+  border-radius:8px;
+  border:none;
+  background:#c4c4ff;
+  cursor:pointer;
+}
+
 /* EDIT + DELETE */
 
 .edit-btn{
