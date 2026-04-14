@@ -181,11 +181,21 @@ button:hover{
 /* EDIT + DELETE */
 
 .edit-btn{
-  background:#C8D9E6;
+  background:#FFBA00;
+  color:white;
+}
+
+.edit-btn:hover{
+  background:#e6a600;
 }
 
 .delete-btn{
-  background:#C8D9E6;
+  background:#C40000;
+  color:white;
+}
+
+.delete-btn:hover{
+  background:#a30000;
 }
 
 /* CLEAR DONE */
