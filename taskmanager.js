@@ -75,6 +75,15 @@ function deleteTask(taskId){
 
 	setTimeout(function() {
 		card.remove();
+
+		const taskIndex = tasks.findIndex(function(t){
+			return t.id === taskId;
+		});
+
+		if (taskIndex !== -1){
+			tasks.splice(taskIndex, 1);
+		}
+		
 	}, 300);
 
 }
@@ -97,6 +106,8 @@ function editTask(taskId){
 	});
 
 	if (!task) return;
+
+	editingTaskId = taskId;
 
 	document.getElementById("taskTitle").value = task.title;
 	document.getElementById("taskDescription").value = task.description;
