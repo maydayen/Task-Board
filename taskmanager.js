@@ -185,6 +185,22 @@ function updateTask(taskId	, updatedData){
 	oldCard.replaceWith(newCard);
 }
 
+function moveTask(taskId, newColumn){
+	const task = tasks.find(function(t){
+		return t.id === taskId;
+	});
+
+	if (!task) return;
+
+	const oldCard = document.querySelector('[data-id="' + taskId + '"]');
+	if (oldCard) {
+		oldCard.remove();
+	}
+
+	task.column = newColumn;
+	addTask(newColumn, task);
+}
+
 const modal = document.getElementById("taskModal");
 
 const addButtons = document.querySelectorAll('[data-column]');
@@ -374,21 +390,5 @@ clearDoneBtn.addEventListener("click", function() {
     }, index * 100);
   });
 });
-
-function moveTask(taskId, newColumn){
-	const task = tasks.find(function(t){
-		return t.id === taskId;
-	});
-
-	if (!task) return;
-
-	const oldCard = document.querySelector('[data-id="' + taskId + '"]');
-	if (oldCard) {
-		oldCard.remove();
-	}
-
-	task.column = newColumn;
-	addTask(newColumn, task);
-}
 
 updateTaskCounter();
