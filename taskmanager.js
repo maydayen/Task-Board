@@ -143,6 +143,43 @@ cancelBtn.addEventListener("click", function(){
 	modal.classList.add("hidden");
 });
 
+const taskForm = document.getElementById("taskForm");
+
+taskForm.addEventListener("submit", function(event){
+  event.preventDefault();
+
+  const titleValue = document.getElementById("taskTitle").value.trim();
+  const descriptionValue = document.getElementById("taskDescription").value.trim();
+  const priorityValue = document.getElementById("taskPriority").value;
+  const dueDateValue = document.getElementById("taskDueDate").value;
+
+  if (titleValue === "" || descriptionValue === "") return;
+
+  if (editingTaskId === null) {
+    const taskObj = {
+      id: nextTaskId,
+      title: titleValue,
+      description: descriptionValue,
+      priority: priorityValue,
+      dueDate: dueDateValue
+    };
+
+    tasks.push(taskObj);
+    addTask(currentColumnId, taskObj);
+    nextTaskId++;
+  } else {
+    updateTask(editingTaskId, {
+      title: titleValue,
+      description: descriptionValue,
+      priority: priorityValue,
+      dueDate: dueDateValue
+    });
+  }
+
+  modal.classList.add("hidden");
+  taskForm.reset();
+});
+
 const todoList = document.getElementById("todoList");
 const inprogressList = document.getElementById("inprogressList");
 const doneList = document.getElementById("doneList");
