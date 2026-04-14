@@ -19,6 +19,10 @@ function createTaskCard(taskObj){
 
 	const priority = document.createElement("span");
 	priority.classList.add("priority-badge");
+
+	const level = taskObj.priority.toLowerCase();
+	priority.classList.add("priority-" + level);
+
 	priority.textContent = taskObj.priority;
 
 	const dueDate = document.createElement("p");
@@ -41,8 +45,13 @@ function createTaskCard(taskObj){
 
 	li.appendChild(title);
 	li.appendChild(description);
-	li.appendChild(priority);
-	li.appendChild(dueDate);
+
+	const meta = document.createElement("div");
+	meta.classList.add("task-meta");
+	meta.appendChild(priority);
+	meta.appendChild(dueDate);
+
+	li.appendChild(meta);
 	const actions = document.createElement("div");
 	actions.classList.add("task-actions");
 
