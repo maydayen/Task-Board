@@ -8,37 +8,47 @@
 </head>
 <body>
 	<header>
-		<h1>My Task Board</h1>
-		<span id="taskCounter">0 Tasks</span>
-
+		<div class="header-left">
+			<h1>My Task Board</h1>
+			<span id="taskCounter">0 Tasks</span>
+		</div>
+		<div class="filter">
 		<label for="priorityFilter">Filter by Priority:</label>
 		<select id="priorityFilter">
 			<option value="All">All</option>
 			<option value="High">High</option>
 			<option value="Medium">Medium</option>
 			<option value="Low">Low</option>
-		</select>
+		</select></div>
 		
 	</header>
 
 	<main>
 		<section id="todo">
-			<h2>To Do</h2>
-			<ul id="todoList"></ul>
-			<button type="button" data-column="todo">Add Task</button>
+		  <div class="column-header">
+		    <h2>To Do</h2>
+		    <button type="button" data-column="todo">Add Task</button>
+		  </div>
+		  <ul id="todoList"></ul>
 		</section>
 
 		<section id="inprogress">
-			<h2>In Progress</h2>
-			<ul id="inprogressList"></ul>
-			<button type="button" data-column="inprogress">Add Task</button>
+		  <div class="column-header">
+		    <h2>In Progress</h2>
+		    <button type="button" data-column="inprogress">Add Task</button>
+		  </div>
+		  <ul id="inprogressList"></ul>
 		</section>
 
 		<section id="done">
-			<h2>Done</h2>
-			<ul id="doneList"></ul>
-			<button type="button" data-column="done">Add Task</button>
-			<button type="button" id="clearDone">Clear All</button>
+		  <div class="column-header">
+		    <h2>Done</h2>
+		    <div class="done-buttons">
+		      <button type="button" id="clearDone">Clear All</button>
+		      <button type="button" data-column="done">Add Task</button>
+		    </div>
+		  </div>
+		  <ul id="doneList"></ul>
 		</section>
 	</main>
 
