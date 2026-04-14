@@ -92,15 +92,17 @@ function deleteTask(taskId){
 	card.classList.add("fade-out");
 
 	setTimeout(function() {
-		card.remove();
+	  card.remove();
 
-		const taskIndex = tasks.findIndex(function(t){
-			return t.id === taskId;
-		});
+	  const taskIndex = tasks.findIndex(function(t){
+	    return t.id === taskId;
+	  });
 
-		if (taskIndex !== -1){
-			tasks.splice(taskIndex, 1);
-		}
+	  if (taskIndex !== -1){
+	    tasks.splice(taskIndex, 1);
+	  }
+
+	  updateTaskCounter();
 	}, 300);
 
 }
@@ -233,3 +235,4 @@ const doneList = document.getElementById("doneList");
     }
   });
 });
+updateTaskCounter();
