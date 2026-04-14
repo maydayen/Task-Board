@@ -1,3 +1,4 @@
+const tasks = [];
 function createTaskCard(taskObj){
 	const li = document.createElement("li");
 	li.setAttribute("data-id", taskObj.id);
@@ -66,7 +67,7 @@ function addTask(columnId, taskObj){
 }
 
 function deleteTask(taskId){
-	const card = document.querySelector(`[data-id="${taskId}"]`);
+	const card = document.querySelector('[data-id="' + taskId + '"]');
 	
 	if (!card) return;
 
@@ -76,6 +77,17 @@ function deleteTask(taskId){
 		card.remove();
 	}, 300);
 
+}
+
+function updateTaskCounter(){
+  const counter = document.getElementById("taskCounter");
+  const totalTasks = document.querySelectorAll(".task-card").length;
+
+  if (totalTasks === 1){
+    counter.textContent = "1 Task";
+  } else {
+    counter.textContent = totalTasks + " Tasks";
+  }
 }
 
 function editTask(taskId){
@@ -106,7 +118,7 @@ function updateTask(taskId	, updatedData){
 	task.priority = updatedData.priority;
 	task.dueDate = updatedData.dueDate;
 
-	const oldCard = document.querySelector(`[data-id="'+ taskId + '"]`);
+	const oldCard = document.querySelector(`[data-id="${taskId}"]`);
 
 	if (!oldCard) return;
 
@@ -129,4 +141,27 @@ const cancelBtn = document.getElementById("cancelTask");
 
 cancelBtn.addEventListener("click", function(){
 	modal.classList.add("hidden");
+});
+
+const todoList = document.getElementById("todoList");
+const inprogressList = document.getElementById("inprogressList");
+const doneList = document.getElementById("doneList");
+
+[todoList, inprogressList, doneList].forEach(function(list) {
+  list.addEventListener("click", function(event) {
+    const action = event.target.getAttribute("data-action");
+    const idStr = event.target.getAttribute("data-id");
+
+    if (!action || !idStr) return;
+
+    const taskId = parseInt(idStr, 10);
+
+    if (action === "delete") {
+      deleteTask(taskId);
+    }
+
+    if (action === "edit") {
+      editTask(taskId);
+    }
+  });
 });
