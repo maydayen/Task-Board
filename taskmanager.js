@@ -235,4 +235,50 @@ const doneList = document.getElementById("doneList");
     }
   });
 });
+
+const priorityFilter = document.getElementById("priorityFilter");
+
+priorityFilter.addEventListener("change", function() {
+  const selectedPriority = priorityFilter.value;
+  const allCards = document.querySelectorAll(".task-card");
+
+  allCards.forEach(function(card) {
+    const cardPriority = card.getAttribute("data-priority");
+
+    const shouldHide =
+      selectedPriority !== "All" && cardPriority !== selectedPriority;
+
+    card.classList.toggle("is-hidden", shouldHide);
+  });
+});
+
+const clearDoneBtn = document.getElementById("clearDone");
+
+clearDoneBtn.addEventListener("click", function() {
+  const doneCards = doneList.querySelectorAll(".task-card");
+
+  doneCards.forEach(function(card, index) {
+    setTimeout(function() {
+      card.classList.add("fade-out");
+
+      setTimeout(function() {
+        const taskId = parseInt(card.getAttribute("data-id"), 10);
+
+        card.remove();
+
+        const taskIndex = tasks.findIndex(function(t) {
+          return t.id === taskId;
+        });
+
+        if (taskIndex !== -1) {
+          tasks.splice(taskIndex, 1);
+        }
+
+        updateTaskCounter();
+      }, 300);
+
+    }, index * 100);
+  });
+});
+
 updateTaskCounter();
