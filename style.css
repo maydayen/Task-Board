@@ -206,12 +206,23 @@ button:hover{
   color: white;
 }
 
-.move-select{
-  padding:6px 8px;
-  border-radius:8px;
-  border:none;
-  background:#c4c4ff;
-  cursor:pointer;
+.move-select {
+  background: #d7ccff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+.move-select:hover {
+  background: #a9a2ff;
+}
+
+.move-select option {
+  background: #ffffff;
+  color: #333;
 }
 
 /* EDIT + DELETE */
