@@ -30,7 +30,7 @@ function createTaskCard(taskObj){
 	if (taskObj.dueDate) {
   const date = new Date(taskObj.dueDate);
   dueDate.textContent = "Due: " + date.toLocaleDateString();
-}
+	}
 
 	const editButton = document.createElement("button");
 	editButton.setAttribute("type", "button");
@@ -56,20 +56,28 @@ function createTaskCard(taskObj){
 	defaultOption.textContent = "Move to";
 	moveSelect.appendChild(defaultOption);
 
-	const todoOption = document.createElement("option");
-	todoOption.value = "todo";
-	todoOption.textContent = "To Do";
-	moveSelect.appendChild(todoOption);
+	/* Only show columns that are NOT the current column */
 
-	const inprogressOption = document.createElement("option");
-	inprogressOption.value = "inprogress";
-	inprogressOption.textContent = "In Progress";
-	moveSelect.appendChild(inprogressOption);
+	if (taskObj.column !== "todo") {
+	  const todoOption = document.createElement("option");
+	  todoOption.value = "todo";
+	  todoOption.textContent = "To Do";
+	  moveSelect.appendChild(todoOption);
+	}
 
-	const doneOption = document.createElement("option");
-	doneOption.value = "done";
-	doneOption.textContent = "Done";
-	moveSelect.appendChild(doneOption);
+	if (taskObj.column !== "inprogress") {
+	  const inprogressOption = document.createElement("option");
+	  inprogressOption.value = "inprogress";
+	  inprogressOption.textContent = "In Progress";
+	  moveSelect.appendChild(inprogressOption);
+	}
+
+	if (taskObj.column !== "done") {
+	  const doneOption = document.createElement("option");
+	  doneOption.value = "done";
+	  doneOption.textContent = "Done";
+	  moveSelect.appendChild(doneOption);
+	}
 
 	li.appendChild(title);
 	li.appendChild(description);
